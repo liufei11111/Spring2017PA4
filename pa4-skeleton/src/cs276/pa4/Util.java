@@ -16,6 +16,7 @@ import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.Normalize;
 import weka.filters.unsupervised.attribute.Standardize;
 
 public class Util {
@@ -140,15 +141,17 @@ public class Util {
     
     return result;
   }
-
+  private static boolean shouldLoadLabel(String refFile){
+    return refFile != null;
+  }
   /**
    * Load Signal files. Might be helpful in implementing extractTrainFeatures and extractTestFeatures methods
    * @param train_data_file
    * @param idfs
    * @return
    */
-  public static Quad<Instances, List<Pair<Query, Document>>, ArrayList<Attribute>, Map<Integer, List<Integer>>> 
-  loadSignalFile(String train_data_file, Map<String,Double> idfs){
+  public static Quad<Instances, List<Pair<Query, Document>>, ArrayList<Attribute>, Map<Integer, List<Integer>>>
+  loadSignalFileLinearRegression(String train_data_file, Map<String,Double> idfs, String refFile){
 
     /* Initial feature vectors */
     Instances X = null;
@@ -160,16 +163,21 @@ public class Util {
     attributes.add(new Attribute("body_w"));
     attributes.add(new Attribute("header_w"));
     attributes.add(new Attribute("anchor_w"));
+//    if (shouldLoadLabel(refFile)){
+      attributes.add(new Attribute("relevance_score"));
+//    }
     X = new Instances("train_dataset", attributes, 0);
     int numAttributes = X.numAttributes();
-
     /* Map to record which doc belong to which query: query -> [list of doc] */
     Map<Integer, List<Integer>> index_map = new HashMap<Integer, List<Integer>>();
     int query_counter = 0, doc_counter = 0;
     List<Pair<Query, Document>> queryDocList = new ArrayList<Pair<Query,Document>>();
     try {
       Map<Query,List<Document>> data_map = Util.loadTrainData (train_data_file);
-
+      Map<String, Map<String, Double>> labelMap = null;
+      if (shouldLoadLabel(refFile)){
+        labelMap = Util.loadRelData(refFile);
+      }
       Feature feature = new Feature(idfs);
       
       /* Add data */
@@ -181,12 +189,14 @@ public class Util {
           doc_counter ++;
           double[] features = feature.extractFeatureVector(doc, query);
           double[] instance = new double[numAttributes];
-          for (int i = 0; i < features.length; ++i){
+          for (int i = 0; i < features.length; ++i) {
             instance[i] = features[i];
-          }   
-          Instance inst = new DenseInstance(1.0, instance); 
+          }
+          if (shouldLoadLabel(refFile)){
+            instance[numAttributes-1] = labelMap.get(query.query).get(doc.url);
+          }
+          Instance inst = new DenseInstance(1.0, instance);
           X.add(inst);
-          
           queryDocList.add(new Pair<Query, Document>(query, doc));
         }
         query_counter++;
@@ -196,8 +206,8 @@ public class Util {
     }
         
     /* Conduct standardization on X */
-    Standardize filter = new Standardize();
-//    Normalize filter = new Normalize(); filter.setScale(2.0); filter.setTranslation(-1.0); // scale values to [-1, 1]
+//    Standardize filter = new Standardize();
+    Normalize filter = new Normalize(); filter.setScale(2.0); filter.setTranslation(-1.0); // scale values to [-1, 1]
     Instances new_X = null;   
     try {
       filter.setInputFormat(X); 
@@ -205,7 +215,7 @@ public class Util {
     } catch (Exception e) {
       e.printStackTrace();
     } 
-    
+    new_X.setClass(attributes.get(attributes.size()-1));
     return new Quad<Instances, List<Pair<Query, Document>>, ArrayList<Attribute>, Map<Integer, List<Integer>>> (new_X, queryDocList, attributes, index_map);
   } 
   
