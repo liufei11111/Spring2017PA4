@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 import weka.classifiers.Classifier;
+import weka.classifiers.functions.LibSVM;
 import weka.core.Instances;
+import weka.core.SelectedTag;
 
 /**
  * Main entry-point of PA4
@@ -47,7 +49,11 @@ public class Learning2Rank {
        * @TODO: Your code here, add more features 
        * */
       System.err.println("Task 3");
-      
+            /*
+       * @TODO: Your code here, add more features
+       * */
+      System.err.println("Task 3");
+      learner = new PairwiseLearner(Config.C, Config.gamma, false);
     } else if (task == 4) {
       
       /* 
@@ -89,6 +95,7 @@ public class Learning2Rank {
        * @TODO: Your code here, add more features 
        * */
       System.err.println("Task 3");
+      learner = new PairwiseLearner(Config.C, Config.gamma, false);
       
     } else if (task == 4) {
        
@@ -110,7 +117,7 @@ public class Learning2Rank {
 
   /**
    * Output the ranking results in expected format
-   * @param ranked_queries
+   * @param
    * @param ps
    */
   public static void writeRankedResultsToFile(Map<Query,List<Document>> queryRankings,PrintStream ps) {
