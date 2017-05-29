@@ -1,4 +1,6 @@
 package cs276.pa4;
+import java.util.List;
+import java.util.Set;
 import weka.core.Instances;
 import java.util.Map;
 
@@ -16,4 +18,7 @@ public class TestFeatures {
    *   features.get(index_map.get(query).get(doc));
    * */
   Map<Query, Map<Document, Integer>> index_map;
+
+  Map<Query,Map<Pair<Document,Document>, Integer>> svmFeasMap;
+  Map<Query, List<Document>> svmQueryDocGrouping;
 }

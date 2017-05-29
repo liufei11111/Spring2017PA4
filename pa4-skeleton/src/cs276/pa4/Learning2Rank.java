@@ -123,7 +123,8 @@ public class Learning2Rank {
 
       String queryStr = "query: " + queryBuilder.toString() + "\n";
       ps.print(queryStr);
-
+//      System.out.println("query: " + query);
+//      System.out.println("queryRankings.get(query): "+queryRankings.get(query).size());
       for (Document res : queryRankings.get(query)) {
         String urlString =
           "  url: " + res.url + "\n" +
