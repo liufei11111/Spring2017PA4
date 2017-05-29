@@ -53,7 +53,7 @@ public class Learning2RankPart2 {
        * @TODO: Your code here, add more features
        * */
       System.err.println("Task 3");
-      learner = new PairwiseLearner(Config.C, Config.gamma, false);
+      learner = new PairwiseLearnerPart3(Config.C, Config.gamma, false);
     } else if (task == 4) {
 
       /*
@@ -95,7 +95,7 @@ public class Learning2RankPart2 {
        * @TODO: Your code here, add more features
        * */
       System.err.println("Task 3");
-      learner = new PairwiseLearner(Config.C, Config.gamma, false);
+      learner = new PairwiseLearnerPart3(Config.C, Config.gamma, false);
 
     } else if (task == 4) {
 

@@ -100,13 +100,23 @@ public class Feature {
   public double[] extractMoreFeatures(Document d, Query q, Map<Query,Map<String, Document>> dataMap) {
     
     double[] basic = extractFeatureVector(d, q);
-    double[] more = null;
+    double[] more = new double[1];
+    double[] result = new double[basic.length+more.length];
 
+    // add page rank as feature
+    more[0] = d.page_rank;
+
+    for (int i=0;i<basic.length;++i){
+      result[i]=basic[i];
+    }
+    for (int i=0;i<more.length;++i){
+      result[i+basic.length]=more[i];
+    }
     //Additional features et added here:
     /*
      * @TODO: Your code here
      */
-    return null;
+    return result;
   }
   
 }
