@@ -2,9 +2,12 @@ package cs276.pa4;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,13 +22,14 @@ import org.ejml.simple.SimpleMatrix;
  * Might be helpful for extra-credit
  */
 public class Embedding {  
-  private Map<String, SimpleMatrix> wordVectors;
+  public Map<String, SimpleMatrix> wordVectors;
   private int embeddingSize;
 
   static final String START_WORD = "*START*";
   static final String END_WORD = "*END*";  
   static final String UNKNOWN_WORD = "*UNK*";
-
+  private Map<String,Double> idfs = Util.loadDFs("./pa4-data/idfs");// check only meaningful words
+  public Embedding(){}
   public Embedding(String wordVectorFile, boolean isGoogleEmbedding) {
     this.wordVectors = new HashMap<String, SimpleMatrix>();
     System.err.println("# Loading embedding ...\n  word vector file = " + wordVectorFile);
@@ -77,7 +81,7 @@ public class Embedding {
       }
       // check for end token
       if(word.equals("</s>")){
-        word = START_WORD;
+        word = END_WORD;
       }
       
       dimOfWords = lineSplit.length - 1;
@@ -102,9 +106,10 @@ public class Embedding {
         vec[i-1][0] = Double.parseDouble(lineSplit[i]);
       }
       SimpleMatrix vector = new SimpleMatrix(vec);
-      wordVectors.put(word, vector);
-
-      numWords++;
+      if (idfs.containsKey(word)){
+        wordVectors.put(word, vector);
+        numWords++;
+      }
     }
     br.close();
     System.err.println("  num words = " + numWords);
@@ -201,10 +206,43 @@ public class Embedding {
    */
   
   public static void main(String[] args) throws Exception {
-    String wordVectorFile = "data/wordVectors.txt.gz";
-    Embedding embedding = new Embedding(wordVectorFile, false);
-    for (String word : embedding.words()) {
-      System.err.println(word + "\t" + embedding.get(word).transpose());
+    String wordVectorFile = "../../GoogleNews-vectors-negative-300.txt";
+    Embedding embedding = new Embedding(wordVectorFile, true);
+    String saveFile = Config.savedEmbeddingFile;
+    embedding.saveEmbeddings(saveFile);
+    Map<String, SimpleMatrix> retrieved = embedding.loadEmbeddings(saveFile);
+    for (Entry<String, SimpleMatrix> entry: embedding.wordVectors.entrySet()){
+      if (!retrieved.containsKey(entry.getKey())){
+        System.out.println("entry.getKey() not found~:"+entry.getKey());
+      }
     }
+  }
+
+  private  void saveEmbeddings(String saveFileName){
+    try {
+      FileOutputStream fis = new FileOutputStream(saveFileName);
+      ObjectOutputStream ois = new ObjectOutputStream(fis);
+       ois.writeObject(wordVectors);
+      ois.close();
+      fis.close();
+    }
+    catch(IOException e) {
+      e.printStackTrace();
+    }
+  }
+  public  Map<String, SimpleMatrix> loadEmbeddings(String saveFileName) {
+    Map<String, SimpleMatrix> termDocCount = null;
+    try {
+      FileInputStream fis = new FileInputStream(saveFileName);
+      ObjectInputStream ois = new ObjectInputStream(fis);
+      termDocCount = (Map<String, SimpleMatrix>) ois.readObject();
+      ois.close();
+      fis.close();
+    }
+    catch(IOException | ClassNotFoundException ioe) {
+      ioe.printStackTrace();
+      return null;
+    }
+    return termDocCount;
   }
 }

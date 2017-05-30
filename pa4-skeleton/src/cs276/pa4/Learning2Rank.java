@@ -60,6 +60,7 @@ public class Learning2Rank {
        * @TODO: Your code here, extra credit 
        * */
       System.err.println("Extra credit");
+      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
       
     }
     
@@ -103,6 +104,7 @@ public class Learning2Rank {
        * @TODO: Your code here, extra credit 
        * */
       System.err.println("Extra credit");
+      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
        
     }
     /* Step (1): construct your test feature matrix here */
