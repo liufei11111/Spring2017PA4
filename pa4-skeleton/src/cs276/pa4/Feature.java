@@ -63,9 +63,9 @@ public class Feature {
     this.calcAverageLengths();
   }
 
-  public Feature(Map<String,Double> idfs){
-    this.idfs = idfs;
-  }
+//  public Feature(Map<String,Double> idfs){
+//    this.idfs = idfs;
+//  }
   
   private void calcAverageLengths() {
     lengths = new HashMap<Document,Map<String,Double>>();

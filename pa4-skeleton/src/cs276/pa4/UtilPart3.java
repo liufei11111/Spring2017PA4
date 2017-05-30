@@ -165,6 +165,8 @@ public class UtilPart3 {
     attributes.add(new Attribute("header_w"));
     attributes.add(new Attribute("anchor_w"));
     attributes.add(new Attribute("page_rank"));
+    attributes.add(new Attribute("BM_25"));
+    attributes.add(new Attribute("min_window"));
 //    if (isTrain(refFile)){
     attributes.add(new Attribute("relevance_score"));
 //    }
@@ -180,8 +182,8 @@ public class UtilPart3 {
       if (isTrain(refFile)){
         labelMap = Util.loadRelData(refFile);
       }
-      Feature feature = new Feature(idfs);
-
+//      Feature feature = new Feature(idfs);
+      Feature feature = new Feature(idfs, data_map);
       /* Add data */
       for (Query query : data_map.keySet()){
         index_map.put(query_counter, new ArrayList<Integer>());
@@ -234,6 +236,8 @@ public class UtilPart3 {
     attributes.add(new Attribute("header_w"));
     attributes.add(new Attribute("anchor_w"));
     attributes.add(new Attribute("page_rank"));
+    attributes.add(new Attribute("BM_25"));
+    attributes.add(new Attribute("min_window"));
 //    if (isTrain(refFile)){
     List labels = new ArrayList(2);
     labels.add("positive");
@@ -253,8 +257,8 @@ public class UtilPart3 {
       if (isTrain(refFile)){
         labelMap = Util.loadRelData(refFile);
       }
-      Feature feature = new Feature(idfs);
-
+//      Feature feature = new Feature(idfs);
+      Feature feature = new Feature(idfs, data_map);
       /* Add data */
       for (Query query : data_map.keySet()){
         index_map.put(query_counter, new ArrayList<Integer>());
@@ -284,9 +288,9 @@ public class UtilPart3 {
           doc_counter ++;
 
           for (int j = i+1;j<docs.size();++j){
-            double[] features = feature.extractFeatureVector(doc, query);
+            double[] features = feature.extractMoreFeatures(doc, query,null);
             Document doc2 = docs.get(j);
-            double[] features2 = feature.extractFeatureVector(doc2, query);
+            double[] features2 = feature.extractMoreFeatures(doc2, query,null);
             double[] instance = new double[numAttributes];
             for (int k = 0; k < features.length; ++k) {
               instance[k] = features[k]-features2[k];
@@ -346,6 +350,8 @@ public class UtilPart3 {
     attributes.add(new Attribute("header_w"));
     attributes.add(new Attribute("anchor_w"));
     attributes.add(new Attribute("page_rank"));
+    attributes.add(new Attribute("BM_25"));
+    attributes.add(new Attribute("min_window"));
 //    if (isTrain(refFile)){
     List labels = new ArrayList(2);
     labels.add("positive");
@@ -365,8 +371,8 @@ public class UtilPart3 {
       if (isTrain(refFile)){
         labelMap = Util.loadRelData(refFile);
       }
-      Feature feature = new Feature(idfs);
-
+//      Feature feature = new Feature(idfs);
+      Feature feature = new Feature(idfs, data_map);
       /* Add data */
       for (Query query : data_map.keySet()){
         index_map.put(query_counter, new ArrayList<Integer>());
