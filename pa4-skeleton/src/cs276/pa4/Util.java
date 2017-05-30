@@ -179,7 +179,7 @@ public class Util {
       if (isTrain(refFile)){
         labelMap = Util.loadRelData(refFile);
       }
-      Feature feature = new Feature(idfs);
+      Feature feature = new Feature(idfs, data_map);
       
       /* Add data */
       for (Query query : data_map.keySet()){
@@ -252,7 +252,7 @@ public class Util {
       if (isTrain(refFile)){
         labelMap = Util.loadRelData(refFile);
       }
-      Feature feature = new Feature(idfs);
+      Feature feature = new Feature(idfs, data_map);
 
       /* Add data */
       for (Query query : data_map.keySet()){
@@ -364,7 +364,7 @@ public class Util {
       if (isTrain(refFile)){
         labelMap = Util.loadRelData(refFile);
       }
-      Feature feature = new Feature(idfs);
+      Feature feature = new Feature(idfs, data_map);
 
       /* Add data */
       for (Query query : data_map.keySet()){
@@ -469,7 +469,18 @@ public class Util {
       }
       return termDocCount;
   }
-  
+
+  public static Map<String,Double> getRawQueryFreqs(Query q) {
+    Map<String, Double> tfVector = new HashMap<String, Double>();
+    String[] wordInQuery = q.query.toLowerCase().split(" ");
+    for (String word : wordInQuery){
+      if (tfVector.containsKey(word))
+        tfVector.put(word, tfVector.get(word) + 1);
+      else
+	tfVector.put(word, 1.0);
+    }
+    return tfVector;
+  }
 
   /**
    * Extract various kinds of term frequencies eg. (url, title, body, header, and anchor)
