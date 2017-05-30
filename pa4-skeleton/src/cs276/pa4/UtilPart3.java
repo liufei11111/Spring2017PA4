@@ -180,7 +180,7 @@ public class UtilPart3 {
       if (isTrain(refFile)){
         labelMap = Util.loadRelData(refFile);
       }
-      Feature feature = new Feature(idfs);
+      Feature feature = new Feature(idfs, data_map);
 
       /* Add data */
       for (Query query : data_map.keySet()){
@@ -253,7 +253,7 @@ public class UtilPart3 {
       if (isTrain(refFile)){
         labelMap = Util.loadRelData(refFile);
       }
-      Feature feature = new Feature(idfs);
+      Feature feature = new Feature(idfs, data_map);
 
       /* Add data */
       for (Query query : data_map.keySet()){
@@ -365,7 +365,7 @@ public class UtilPart3 {
       if (isTrain(refFile)){
         labelMap = Util.loadRelData(refFile);
       }
-      Feature feature = new Feature(idfs);
+      Feature feature = new Feature(idfs, data_map);
 
       /* Add data */
       for (Query query : data_map.keySet()){
