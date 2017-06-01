@@ -168,37 +168,41 @@ public class Learning2RankPart2 {
     double highestScore = -Double.MAX_VALUE;
     double highestC = -Double.MAX_VALUE;
     double highestGamma = -Double.MAX_VALUE;
-    for (int i=0;i<7;++i){
-      Config.C = Math.pow(2,i-3);
-      Config.gamma = Math.pow(2,i-7);
-      Classifier model = train(train_signal_file, train_rel_file, task, idfs);
+    double total = 7.0;
+    for (double i=0;i<total;i=i+1.0){
+      Config.C = Math.pow(2,-3+i);
+      for(double j=0;j<total;j=j+1.0){
+        Config.gamma = Math.pow(2,-7+j);
+        Classifier model = train(train_signal_file, train_rel_file, task, idfs);
     /* performance on the training data */
-      Map<Query, List<Document>> trained_ranked_queries = test(train_signal_file, model, task, idfs);
-      String trainOutFile="tmp.train.ranked";
-      writeRankedResultsToFile(trained_ranked_queries, new PrintStream(new FileOutputStream(trainOutFile)));
-      NdcgMain ndcg = new NdcgMain(train_rel_file);
-      double tempScore =ndcg.score(trainOutFile);
-      if (highestScore < tempScore ){
-        highestScore=tempScore;
-        highestC=Config.C;
-        highestGamma=Config.gamma;
-      }
-      System.err.println("# Trained NDCG=" + tempScore);
-      (new File(trainOutFile)).delete();
+        Map<Query, List<Document>> trained_ranked_queries = test(train_signal_file, model, task, idfs);
+        String trainOutFile="tmp.train.ranked";
+        writeRankedResultsToFile(trained_ranked_queries, new PrintStream(new FileOutputStream(trainOutFile)));
+        NdcgMain ndcg = new NdcgMain(train_rel_file);
+        double tempScore =ndcg.score(trainOutFile);
+        if (highestScore < tempScore ){
+          highestScore=tempScore;
+          highestC=Config.C;
+          highestGamma=Config.gamma;
+        }
+        System.err.println("# Trained NDCG=" + tempScore);
+        (new File(trainOutFile)).delete();
 
-      Map<Query, List<Document>> ranked_queries = test(test_signal_file, model, task, idfs);
+        Map<Query, List<Document>> ranked_queries = test(test_signal_file, model, task, idfs);
 
     /* Output results */
-      if(ranked_out_file == null || ranked_out_file.isEmpty()){ /* output to stdout */
-        writeRankedResultsToFile(ranked_queries, System.out);
-      } else {
+        if(ranked_out_file == null || ranked_out_file.isEmpty()){ /* output to stdout */
+          writeRankedResultsToFile(ranked_queries, System.out);
+        } else {
       /* output to file */
-        try {
-          writeRankedResultsToFile(ranked_queries, new PrintStream(new FileOutputStream(ranked_out_file)));
-        } catch (FileNotFoundException e) {
-          e.printStackTrace();
+          try {
+            writeRankedResultsToFile(ranked_queries, new PrintStream(new FileOutputStream(ranked_out_file)));
+          } catch (FileNotFoundException e) {
+            e.printStackTrace();
+          }
         }
       }
+
     }
     System.out.println("Highest C: "+highestC);
     System.out.println("HighestGamma: "+highestGamma);

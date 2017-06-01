@@ -538,9 +538,11 @@ public class FeatureExtra {
     // add smallest window as feature
     more[2] = extractSmallestWindowScore(d, q);
 
-    GoogleWordVector gwv = new GoogleWordVector();
-    gwv.getQueryDocEmbeddingSim(Util.getRawQueryFreqs(q),UtilExtra.getAllDocTermFreqs(d));
 
+    double[] vector = GoogleWordVector.getQueryDocEmbeddingSim(Util.getRawQueryFreqs(q),UtilExtra.getAllDocTermFreqs(d));
+    for(int i=0;i<5;++i){
+      more[i+3]=vector[i];
+    }
     for (int i=0;i<basic.length;++i){
       result[i]=basic[i];
     }

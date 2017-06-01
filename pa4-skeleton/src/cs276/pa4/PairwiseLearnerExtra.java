@@ -54,7 +54,7 @@ public class PairwiseLearnerExtra extends Learner{
      * Populate data
      */
     Quad<Instances, List<Pair<Query, Pair<Document,Document>>>, ArrayList<Attribute>, Map<Integer, List<Integer>>>
-        linearSVM = UtilPart3.loadSignalFileLinearSVMTraining( train_data_file,  idfs, train_rel_file);
+        linearSVM = UtilExtra.loadSignalFileLinearSVMTraining( train_data_file,  idfs, train_rel_file);
     return linearSVM.getFirst();
   }
 
@@ -80,7 +80,7 @@ public class PairwiseLearnerExtra extends Learner{
      * Use this to build the test features that will be used for testing
      */
     Quad<Instances, List<Pair<Query, Pair<Document,Document>>>, ArrayList<Attribute>, Map<Integer, List<Integer>>>
-        testData = UtilPart3.loadSignalFileLinearSVM(test_data_file,idfs,null);
+        testData = UtilExtra.loadSignalFileLinearSVM(test_data_file,idfs,null);
     TestFeatures testFeas = new TestFeatures();
     testFeas.features = testData.getFirst();
     HashMap<Query, Map<Pair<Document,Document>,Integer>> indexMap = new HashMap<>();

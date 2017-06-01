@@ -60,8 +60,8 @@ public class Learning2Rank {
        * @TODO: Your code here, extra credit 
        * */
       System.err.println("Extra credit");
-      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
-      
+      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, true);
+
     }
     
     /* Step (1): construct your feature matrix here */
@@ -90,6 +90,7 @@ public class Learning2Rank {
     } else if (task == 2) {
       boolean isLinearKernel = true;
       learner = new PairwiseLearner(isLinearKernel);
+//      learner = new PairwiseLearner(Config.C, Config.gamma, false);
     } else if (task == 3) {
     
       /* 
@@ -104,8 +105,8 @@ public class Learning2Rank {
        * @TODO: Your code here, extra credit 
        * */
       System.err.println("Extra credit");
+//      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
       learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
-       
     }
     /* Step (1): construct your test feature matrix here */
     TestFeatures tf = learner.extractTestFeatures(test_signal_file, idfs);

@@ -5,7 +5,7 @@ package cs276.pa4;
  */
 public class Config {
   public static double C = 8;
-  public static double gamma = 0.5;
+  public static double gamma = 0.25;
   public static String savedEmbeddingFile="savedEmbedding.txt";
   public static int embeddingSize=300;
 }
