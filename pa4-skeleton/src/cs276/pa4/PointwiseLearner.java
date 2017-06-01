@@ -87,7 +87,7 @@ public class PointwiseLearner extends Learner {
     for (int i=0;i< rows.size();++i){
       Pair<Query, Document> pair = rows.get(i);
       if (!indexMap.containsKey(pair.getFirst())){
-        indexMap.put(pair.getFirst(),new HashMap<>());
+        indexMap.put(pair.getFirst(),new HashMap<Document,Integer>());
       }
       indexMap.get(pair.getFirst()).put(pair.getSecond(),i);
     }
