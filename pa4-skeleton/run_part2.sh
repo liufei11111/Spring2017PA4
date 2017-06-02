@@ -17,8 +17,8 @@ output_file="$7"
 ./l2r_part2.sh $train_signal_file $train_rel_file $test_signal_file $idfs_file $task tmp.out.txt
 
 # compute NDCG
-echo ""
-echo "# Executing: java -cp classes cs276.pa4.NdcgMain tmp.out.txt $test_rel_file $output_file"
-java -cp classes cs276.pa4.NdcgMain tmp.out.txt $test_rel_file $output_file
+#echo ""
+#echo "# Executing: java -cp classes cs276.pa4.NdcgMain tmp.out.txt $test_rel_file $output_file"
+#java -cp classes cs276.pa4.NdcgMain tmp.out.txt $test_rel_file $output_file
 
 rm -rf tmp.out.txt

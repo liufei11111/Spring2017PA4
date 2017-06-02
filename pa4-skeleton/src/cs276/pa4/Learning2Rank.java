@@ -44,7 +44,7 @@ public class Learning2Rank {
       boolean isLinearKernel = true;
       //
 //      learner = new PairwiseLearner(isLinearKernel);
-      learner = new PairwiseLearner(Config.part2C, Config.part2Gamma,false);
+      learner = new PairwiseLearner(Config.part2C, Config.part2Gamma,true);
     } else if (task == 3) {
       
       /* 
@@ -55,7 +55,7 @@ public class Learning2Rank {
        * @TODO: Your code here, add more features
        * */
 //      learner = new PairwiseLearnerPart3(true);
-      learner = new PairwiseLearnerPart3(Config.C, Config.gamma, true);
+      learner = new PairwiseLearnerPart3(Config.part3C, Config.part3Gamma, false);
 //      learner = new PairwiseLearnerPart3(Config.C, Config.gamma, false);
     } else if (task == 4) {
       
@@ -63,7 +63,7 @@ public class Learning2Rank {
        * @TODO: Your code here, extra credit 
        * */
       System.err.println("Extra credit");
-      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
+      learner = new PairwiseLearnerExtra(Config.part4C, Config.part4Gamma, true);
 
     }
     
@@ -93,7 +93,7 @@ public class Learning2Rank {
     } else if (task == 2) {
       boolean isLinearKernel = true;
 //      learner = new PairwiseLearner(isLinearKernel);
-      learner = new PairwiseLearner(Config.part2C, Config.part2Gamma, false);
+      learner = new PairwiseLearner(Config.part2C, Config.part2Gamma, true);
     } else if (task == 3) {
     
       /* 
@@ -102,7 +102,7 @@ public class Learning2Rank {
       System.err.println("Task 3");
 //    learner = new PairwiseLearnerPart3(true);
 //  learner = new PairwiseLearnerPart3(Config.C, Config.gamma, false);
-      learner = new PairwiseLearnerPart3(Config.C, Config.gamma, true);
+      learner = new PairwiseLearnerPart3(Config.part3C, Config.part3Gamma, false);
     } else if (task == 4) {
        
       /* 
@@ -110,7 +110,7 @@ public class Learning2Rank {
        * */
       System.err.println("Extra credit");
 //      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
-      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
+      learner = new PairwiseLearnerExtra(Config.part4C, Config.part4Gamma, true);
     }
     /* Step (1): construct your test feature matrix here */
     TestFeatures tf = learner.extractTestFeatures(test_signal_file, idfs);
