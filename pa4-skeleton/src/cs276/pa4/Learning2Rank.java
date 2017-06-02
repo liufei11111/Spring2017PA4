@@ -42,7 +42,9 @@ public class Learning2Rank {
       learner = new PointwiseLearner();
     } else if (task == 2) {
       boolean isLinearKernel = true;
-      learner = new PairwiseLearner(isLinearKernel);
+      //
+//      learner = new PairwiseLearner(isLinearKernel);
+      learner = new PairwiseLearner(Config.part2C, Config.part2Gamma,false);
     } else if (task == 3) {
       
       /* 
@@ -52,15 +54,16 @@ public class Learning2Rank {
             /*
        * @TODO: Your code here, add more features
        * */
-      System.err.println("Task 3");
-      learner = new PairwiseLearnerPart3(Config.C, Config.gamma, false);
+//      learner = new PairwiseLearnerPart3(true);
+      learner = new PairwiseLearnerPart3(Config.C, Config.gamma, true);
+//      learner = new PairwiseLearnerPart3(Config.C, Config.gamma, false);
     } else if (task == 4) {
       
       /* 
        * @TODO: Your code here, extra credit 
        * */
       System.err.println("Extra credit");
-      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, true);
+      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
 
     }
     
@@ -89,16 +92,17 @@ public class Learning2Rank {
       learner = new PointwiseLearner();
     } else if (task == 2) {
       boolean isLinearKernel = true;
-      learner = new PairwiseLearner(isLinearKernel);
-//      learner = new PairwiseLearner(Config.C, Config.gamma, false);
+//      learner = new PairwiseLearner(isLinearKernel);
+      learner = new PairwiseLearner(Config.part2C, Config.part2Gamma, false);
     } else if (task == 3) {
     
       /* 
        * @TODO: Your code here, add more features 
        * */
       System.err.println("Task 3");
-      learner = new PairwiseLearnerPart3(Config.C, Config.gamma, false);
-      
+//    learner = new PairwiseLearnerPart3(true);
+//  learner = new PairwiseLearnerPart3(Config.C, Config.gamma, false);
+      learner = new PairwiseLearnerPart3(Config.C, Config.gamma, true);
     } else if (task == 4) {
        
       /* 

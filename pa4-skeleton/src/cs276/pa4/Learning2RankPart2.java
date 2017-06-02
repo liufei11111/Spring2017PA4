@@ -42,7 +42,8 @@ public class Learning2RankPart2 {
       learner = new PointwiseLearner();
     } else if (task == 2) {
       boolean isLinearKernel = true;
-      learner = new PairwiseLearner(isLinearKernel);
+//       learner = new PairwiseLearner(isLinearKernel);
+      learner= new PairwiseLearner(Config.C, Config.gamma, false);
     } else if (task == 3) {
 
       /*
@@ -89,7 +90,8 @@ public class Learning2RankPart2 {
       learner = new PointwiseLearner();
     } else if (task == 2) {
       boolean isLinearKernel = true;
-      learner = new PairwiseLearner(isLinearKernel);
+//      learner = new PairwiseLearner(isLinearKernel);
+      learner= new PairwiseLearner(Config.C, Config.gamma, false);
     } else if (task == 3) {
 
       /*
@@ -168,11 +170,12 @@ public class Learning2RankPart2 {
     double highestScore = -Double.MAX_VALUE;
     double highestC = -Double.MAX_VALUE;
     double highestGamma = -Double.MAX_VALUE;
-    double total = 7.0;
+    double total = 10.0;
     for (double i=0;i<total;i=i+1.0){
-      Config.C = Math.pow(2,-3+i);
-      for(double j=0;j<total;j=j+1.0){
-        Config.gamma = Math.pow(2,-7+j);
+//      Config.C = 56.0+i*2.0/total;
+//      Config.C = Math.pow(2,-3+i);
+//      for(double j=0;j<total;j=j+1.0){
+        Config.gamma = 0.015+0.04*i/total;
         Classifier model = train(train_signal_file, train_rel_file, task, idfs);
     /* performance on the training data */
         Map<Query, List<Document>> trained_ranked_queries = test(train_signal_file, model, task, idfs);
@@ -201,7 +204,7 @@ public class Learning2RankPart2 {
             e.printStackTrace();
           }
         }
-      }
+//      }
 
     }
     System.out.println("Highest C: "+highestC);
