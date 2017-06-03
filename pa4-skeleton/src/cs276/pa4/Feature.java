@@ -433,19 +433,27 @@ public class Feature {
     this.normalizeTFs(tfs, d, q);
     
     /* [url, title, body, header, anchor] */
+    if (Config.isRazarEnabledPart3){
+      double[] result = new double[4];
+      for (int i = 0; i < result.length; i++) { result[i] = 0.0; }
+      for (String queryWord : q.queryWords){
+        double queryScore = queryVector.get(queryWord);
+        result[0]  += tfs.get("url").get(queryWord) * queryScore;
+        result[1]  += tfs.get("body").get(queryWord) * queryScore;
+        result[2]  += tfs.get("header").get(queryWord) * queryScore;
+        result[3]  += tfs.get("anchor").get(queryWord) * queryScore;
+      }
+      return result;
+    }
     double[] result = new double[5];
     for (int i = 0; i < result.length; i++) { result[i] = 0.0; }
     for (String queryWord : q.queryWords){
       double queryScore = queryVector.get(queryWord);
       result[0]  += tfs.get("url").get(queryWord) * queryScore;
-//      result[1]  += tfs.get("title").get(queryWord) * queryScore;
-      result[1]  += tfs.get("body").get(queryWord) * queryScore;
-      result[2]  += tfs.get("header").get(queryWord) * queryScore;
-      result[3]  += tfs.get("anchor").get(queryWord) * queryScore;
-//      result[1]  += tfs.get("title").get(queryWord) * queryScore;
-//      result[2]  += tfs.get("body").get(queryWord) * queryScore;
-//      result[3]  += tfs.get("header").get(queryWord) * queryScore;
-//      result[4]  += tfs.get("anchor").get(queryWord) * queryScore;
+      result[1]  += tfs.get("title").get(queryWord) * queryScore;
+      result[2]  += tfs.get("body").get(queryWord) * queryScore;
+      result[3]  += tfs.get("header").get(queryWord) * queryScore;
+      result[4]  += tfs.get("anchor").get(queryWord) * queryScore;
     }
 
     return result;

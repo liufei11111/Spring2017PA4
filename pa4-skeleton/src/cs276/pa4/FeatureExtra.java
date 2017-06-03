@@ -2,7 +2,6 @@ package cs276.pa4;
 
 import cs276.pa4.embedding.GoogleWordVector;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -434,6 +433,18 @@ public class FeatureExtra {
     this.normalizeTFs(tfs, d, q);
 
     /* [url, title, body, header, anchor] */
+    if (Config.isRazarEnabledPart4Title){
+      double[] result = new double[4];
+      for (int i = 0; i < result.length; i++) { result[i] = 0.0; }
+      for (String queryWord : q.queryWords){
+        double queryScore = queryVector.get(queryWord);
+        result[0]  += tfs.get("url").get(queryWord) * queryScore;
+        result[1]  += tfs.get("body").get(queryWord) * queryScore;
+        result[2]  += tfs.get("header").get(queryWord) * queryScore;
+        result[3]  += tfs.get("anchor").get(queryWord) * queryScore;
+      }
+      return result;
+    }
     double[] result = new double[5];
     for (int i = 0; i < result.length; i++) { result[i] = 0.0; }
     for (String queryWord : q.queryWords){
@@ -444,8 +455,8 @@ public class FeatureExtra {
       result[3]  += tfs.get("header").get(queryWord) * queryScore;
       result[4]  += tfs.get("anchor").get(queryWord) * queryScore;
     }
-
     return result;
+
   }
 
   public double extractBM25Score(Document d, Query q){
@@ -526,7 +537,7 @@ public class FeatureExtra {
   public double[] extractMoreFeatures(Document d, Query q, Map<Query,Map<String, Document>> dataMap) {
 
     double[] basic = extractFeatureVector(d, q);
-    double[] more = new double[8];
+    double[] more = new double[(!Config.isRazarEnabledPart4TitleSim ? 8:7)];
     double[] result = new double[basic.length+more.length];
 
     // add page rank as feature
@@ -540,7 +551,8 @@ public class FeatureExtra {
 
 
     double[] vector = GoogleWordVector.getQueryDocEmbeddingSim(Util.getRawQueryFreqs(q),UtilExtra.getAllDocTermFreqs(d));
-    for(int i=0;i<5;++i){
+    for(int i=0;i<vector.length;++i){
+//      System.out.println("Vector.length"+vector.length+"more.length"+more.length);
       more[i+3]=vector[i];
     }
     for (int i=0;i<basic.length;++i){

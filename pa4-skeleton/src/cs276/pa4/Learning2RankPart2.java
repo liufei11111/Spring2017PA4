@@ -176,12 +176,12 @@ public class Learning2RankPart2 {
 
     for (double i=0;i<total;i=i+1.0){
 //      Config.C = 56.0+i*2.0/total;
-//      Config.C = 29+2*(i)/total;
-//            Config.C = Math.pow(2,3+i);
+//      Config.C = 0.03125+0.09375*(i)/total;
+//            Config.C = Math.pow(2,-5+i);
 //      Config.part4SMOC = Math.pow(2,-3+i);
 
 //      for(double j=0;j<total;j=j+1.0){
-        Config.gamma = 0.061 + 0.007750000000000007*i/total;
+        Config.gamma = 0.696 + 0.008*i/total;
 //        Config.gamma = Math.pow(2,-total+i);
         Classifier model = train(train_signal_file, train_rel_file, task, idfs);
     /* performance on the training data */

@@ -13,17 +13,21 @@ public class Config {
   public static String savedEmbeddingFile="savedEmbedding.txt";
   public static int embeddingSize=300;
 
-  public static double part4C=72.2;
-  public static double part4Gamma=  0.0652625;
+  public static double part4C=0.0828125;
+  public static double part4Gamma=  0.6980000000000001;
 
   // for tunning only
-  public static double C = 72.2;
-  public static double gamma = 0.0652625;
+  public static double C = 0.0828125;
+  public static double gamma = 0.6980000000000001;
 
   // SMO
   public static double part4SMOC=100;
   public static int polyOrder = 4;
   public static double part4SMOL=0.00001;
-  // enable razer
-  public static boolean isRazarEnabled=true;
+  // enable razer part 3
+
+  public static boolean isRazarEnabledPart3=true;
+  // enable razar part 4
+  public static boolean isRazarEnabledPart4Title =false;
+  public static boolean isRazarEnabledPart4TitleSim =false;
 }

@@ -76,7 +76,7 @@ public class UtilPart3 {
     /* Build X and Y matrices */
     ArrayList<Attribute> attributes = new ArrayList<Attribute>();
     attributes.add(new Attribute("url_w"));
-    if (Config.isRazarEnabled){
+    if (!Config.isRazarEnabledPart3){
       attributes.add(new Attribute("title_w"));
     }
 
@@ -192,7 +192,7 @@ public class UtilPart3 {
     /* Build X and Y matrices */
     ArrayList<Attribute> attributes = new ArrayList<Attribute>();
     attributes.add(new Attribute("url_w"));
-    if (Config.isRazarEnabled){
+    if (!Config.isRazarEnabledPart3){
       attributes.add(new Attribute("title_w"));
     }
     attributes.add(new Attribute("body_w"));

@@ -2,10 +2,8 @@ package cs276.pa4;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -77,7 +75,7 @@ public class UtilExtra {
     /* Build X and Y matrices */
     ArrayList<Attribute> attributes = new ArrayList<Attribute>();
     attributes.add(new Attribute("url_w"));
-    if (Config.isRazarEnabled){
+    if (!Config.isRazarEnabledPart4Title){
       attributes.add(new Attribute("title_w"));
     }
     attributes.add(new Attribute("body_w"));
@@ -87,7 +85,9 @@ public class UtilExtra {
     attributes.add(new Attribute("BM_25"));
     attributes.add(new Attribute("min_window"));
     attributes.add(new Attribute("url_sim"));
-    attributes.add(new Attribute("title_sim"));
+    if (!Config.isRazarEnabledPart4TitleSim){
+      attributes.add(new Attribute("title_sim"));
+    }
     attributes.add(new Attribute("body_sim"));
     attributes.add(new Attribute("header_sim"));
     attributes.add(new Attribute("anchor_sim"));
@@ -110,7 +110,7 @@ public class UtilExtra {
       if (isTrain(refFile)){
         labelMap = Util.loadRelData(refFile);
       }
-      Feature feature = new Feature(idfs, data_map);
+      FeatureExtra feature = new FeatureExtra(idfs, data_map);
       /* Add data */
       for (Query query : data_map.keySet()){
         index_map.put(query_counter, new ArrayList<Integer>());
@@ -197,7 +197,7 @@ public class UtilExtra {
     /* Build X and Y matrices */
     ArrayList<Attribute> attributes = new ArrayList<Attribute>();
     attributes.add(new Attribute("url_w"));
-    if (Config.isRazarEnabled){
+    if (!Config.isRazarEnabledPart4Title){
       attributes.add(new Attribute("title_w"));
     }
     attributes.add(new Attribute("body_w"));
@@ -207,7 +207,9 @@ public class UtilExtra {
     attributes.add(new Attribute("BM_25"));
     attributes.add(new Attribute("min_window"));
     attributes.add(new Attribute("url_sim"));
-    attributes.add(new Attribute("title_sim"));
+    if (!Config.isRazarEnabledPart4TitleSim){
+      attributes.add(new Attribute("title_sim"));
+    }
     attributes.add(new Attribute("body_sim"));
     attributes.add(new Attribute("header_sim"));
     attributes.add(new Attribute("anchor_sim"));
