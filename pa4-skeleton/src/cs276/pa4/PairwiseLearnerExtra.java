@@ -91,7 +91,7 @@ public class PairwiseLearnerExtra extends Learner{
     for (int i=0;i < rows.size();++i){
       Pair<Query, Pair<Document,Document>> pair = rows.get(i);
       if (prev == null ||  prev != pair.getFirst()) {
-        grouping.put(pair.getFirst(),new ArrayList<>());
+        grouping.put(pair.getFirst(),new ArrayList<Document>());
         duplicateCheck.clear();
       }
       if (!duplicateCheck.contains(pair.getSecond().getFirst())){
@@ -102,7 +102,7 @@ public class PairwiseLearnerExtra extends Learner{
       prev = pair.getFirst();
       //
       if (!indexMap.containsKey(pair.getFirst())){
-        indexMap.put(pair.getFirst(),new HashMap<>());
+        indexMap.put(pair.getFirst(),new HashMap<Pair<Document,Document>,Integer>());
       }
       indexMap.get(pair.getFirst()).put(pair.getSecond(),i);
     }
