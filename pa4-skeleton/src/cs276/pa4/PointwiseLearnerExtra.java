@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import weka.classifiers.Classifier;
 import weka.classifiers.functions.SMO;
+import weka.classifiers.functions.supportVector.Kernel;
+import weka.classifiers.functions.supportVector.PolyKernel;
 import weka.core.Attribute;
 import weka.core.Instances;
 import weka.classifiers.functions.LinearRegression;
@@ -20,10 +22,18 @@ import weka.classifiers.functions.LinearRegression;
  */
 public class PointwiseLearnerExtra extends Learner {
   Classifier model ;
-  public PointwiseLearnerExtra(double part4C, double part4L){
+  public PointwiseLearnerExtra(double part4C, double part4L) {
     this.model = new SMO();
     ((SMO) this.model).setC(part4C);
     ((SMO) this.model).setToleranceParameter(part4L);
+    Kernel kernel = new PolyKernel();
+    String[] options = {"-E",""+Config.polyOrder};
+    try {
+      kernel.setOptions(options);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    ((SMO) this.model).setKernel(kernel);
   }
   @Override
   public Instances extractTrainFeatures(String train_data_file,

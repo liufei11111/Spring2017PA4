@@ -62,8 +62,8 @@ public class Learning2RankPart2 {
        * */
 
       System.err.println("Extra credit");
-//      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, true);
-      learner = new PointwiseLearnerExtra(Config.part4SMOC,Config.part4SMOL);
+      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
+//      learner = new PointwiseLearnerExtra(Config.part4SMOC,Config.part4SMOL);
     }
 
     /* Step (1): construct your feature matrix here */
@@ -107,8 +107,8 @@ public class Learning2RankPart2 {
        * @TODO: Your code here, extra credit
        * */
       System.err.println("Extra credit");
-//      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, true);
-      learner = new PointwiseLearnerExtra(Config.part4SMOC,Config.part4SMOL);
+      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
+//      learner = new PointwiseLearnerExtra(Config.part4SMOC,Config.part4SMOL);
     }
     /* Step (1): construct your test feature matrix here */
     TestFeatures tf = learner.extractTestFeatures(test_signal_file, idfs);
@@ -172,16 +172,16 @@ public class Learning2RankPart2 {
     double highestScore = -Double.MAX_VALUE;
     double highestC = -Double.MAX_VALUE;
     double highestGamma = -Double.MAX_VALUE;
-    double total = 1.0;
+    double total = 20.0;
 
     for (double i=0;i<total;i=i+1.0){
 //      Config.C = 56.0+i*2.0/total;
 //      Config.C = 29+2*(i)/total;
 //            Config.C = Math.pow(2,3+i);
-      Config.part4SMOC = Math.pow(10,-3+i);
+//      Config.part4SMOC = Math.pow(2,-3+i);
 
 //      for(double j=0;j<total;j=j+1.0){
-//        Config.gamma = 0.045625 + 0.001875*i/total;
+        Config.gamma = 0.061 + 0.007750000000000007*i/total;
 //        Config.gamma = Math.pow(2,-total+i);
         Classifier model = train(train_signal_file, train_rel_file, task, idfs);
     /* performance on the training data */
@@ -209,6 +209,8 @@ public class Learning2RankPart2 {
         }
       NdcgMain main = new NdcgMain("pa4-data/pa3.rel.dev");
       double ndcg_score = main.score("tmp.out.txt");
+      System.err.println("###!!! Current C = "+Config.C);
+      System.err.println("###!!! Current Gamma = "+Config.gamma);
       System.err.println("###!!! Test NDCG = "+ndcg_score);
 //      }
       if (highestScore < ndcg_score ){

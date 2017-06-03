@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
+import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.filters.Filter;
@@ -172,7 +173,17 @@ public class UtilExtraSVOReg {
     attributes.add(new Attribute("header_sim"));
     attributes.add(new Attribute("anchor_sim"));
 //    if (isTrain(refFile)){
-      attributes.add(new Attribute("relevance_score"));
+    List labels = new ArrayList(9);
+    labels.add("0.0");
+    labels.add("0.5");
+    labels.add("1.0");
+    labels.add("1.5");
+    labels.add("2.0");
+    labels.add("2.5");
+    labels.add("3.0");
+    labels.add("3.5");
+    labels.add("4.0");
+      attributes.add(new Attribute("relevance_score",labels));
 //    }
     X = new Instances("train_dataset", attributes, 0);
     int numAttributes = X.numAttributes();
@@ -195,13 +206,13 @@ public class UtilExtraSVOReg {
         for (Document doc : data_map.get(query)){
           index_map.get(query_counter).add(doc_counter);
           doc_counter ++;
-          double[] features = feature.extractFeatureVector(doc, query);
+          double[] features = feature.extractMoreFeatures(doc, query,null);
           double[] instance = new double[numAttributes];
           for (int i = 0; i < features.length; ++i) {
             instance[i] = features[i];
           }
           if (isTrain(refFile)){
-            instance[numAttributes-1] = labelMap.get(query.query).get(doc.url);
+            instance[numAttributes-1] = labelMap.get(query.query).get(doc.url)/0.5;
           }
           Instance inst = new DenseInstance(1.0, instance);
           X.add(inst);
