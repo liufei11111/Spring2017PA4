@@ -10,7 +10,7 @@ public class Config {
   public static double part3C = 30;
   public static double part3Gamma = 0.04675;
 
-  public static String savedEmbeddingFile="savedEmbedding.txt";
+  public static String savedEmbeddingFile="/farmshare/user_data/fliu5/savedEmbedding.txt";
   public static int embeddingSize=300;
 
   public static double part4C=0.0828125;
