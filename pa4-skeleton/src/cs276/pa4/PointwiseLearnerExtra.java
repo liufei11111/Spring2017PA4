@@ -9,6 +9,7 @@ import java.util.Map;
 
 import java.util.Map.Entry;
 import weka.classifiers.Classifier;
+import weka.classifiers.functions.SMO;
 import weka.core.Attribute;
 import weka.core.Instances;
 import weka.classifiers.functions.LinearRegression;
@@ -18,7 +19,12 @@ import weka.classifiers.functions.LinearRegression;
  *
  */
 public class PointwiseLearnerExtra extends Learner {
-
+  Classifier model ;
+  public PointwiseLearnerExtra(double part4C, double part4L){
+    this.model = new SMO();
+    ((SMO) this.model).setC(part4C);
+    ((SMO) this.model).setToleranceParameter(part4L);
+  }
   @Override
   public Instances extractTrainFeatures(String train_data_file,
       String train_rel_file, Map<String, Double> idfs) {
@@ -59,7 +65,6 @@ public class PointwiseLearnerExtra extends Learner {
     /*
      * @TODO: Your code here
      */
-    LinearRegression model = new LinearRegression();
     try {
       model.buildClassifier(dataset);
     } catch (Exception e) {
@@ -87,7 +92,7 @@ public class PointwiseLearnerExtra extends Learner {
     for (int i=0;i< rows.size();++i){
       Pair<Query, Document> pair = rows.get(i);
       if (!indexMap.containsKey(pair.getFirst())){
-        indexMap.put(pair.getFirst(),new HashMap<Document, Integer>());
+        indexMap.put(pair.getFirst(),new HashMap<>());
       }
       indexMap.get(pair.getFirst()).put(pair.getSecond(),i);
     }

@@ -18,4 +18,7 @@ public class Config {
   public static int embeddingSize=300;
   public static double part4C=72.2;
   public static double part4Gamma= 0.031;
+  // SMO
+  public static double part4SMOC=100;
+  public static double part4SMOL=0.00001;
 }

@@ -62,7 +62,8 @@ public class Learning2RankPart2 {
        * */
 
       System.err.println("Extra credit");
-      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, true);
+//      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, true);
+      learner = new PointwiseLearnerExtra(Config.part4SMOC,Config.part4SMOL);
     }
 
     /* Step (1): construct your feature matrix here */
@@ -106,7 +107,8 @@ public class Learning2RankPart2 {
        * @TODO: Your code here, extra credit
        * */
       System.err.println("Extra credit");
-      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, true);
+//      learner = new PairwiseLearnerExtra(Config.C, Config.gamma, true);
+      learner = new PointwiseLearnerExtra(Config.part4SMOC,Config.part4SMOL);
     }
     /* Step (1): construct your test feature matrix here */
     TestFeatures tf = learner.extractTestFeatures(test_signal_file, idfs);
@@ -170,14 +172,16 @@ public class Learning2RankPart2 {
     double highestScore = -Double.MAX_VALUE;
     double highestC = -Double.MAX_VALUE;
     double highestGamma = -Double.MAX_VALUE;
-    double total = 10.0;
+    double total = 1.0;
 
     for (double i=0;i<total;i=i+1.0){
 //      Config.C = 56.0+i*2.0/total;
 //      Config.C = 29+2*(i)/total;
 //            Config.C = Math.pow(2,3+i);
+      Config.part4SMOC = Math.pow(10,-3+i);
+
 //      for(double j=0;j<total;j=j+1.0){
-        Config.gamma = 0.045625 + 0.001875*i/total;
+//        Config.gamma = 0.045625 + 0.001875*i/total;
 //        Config.gamma = Math.pow(2,-total+i);
         Classifier model = train(train_signal_file, train_rel_file, task, idfs);
     /* performance on the training data */
