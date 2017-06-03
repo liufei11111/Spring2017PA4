@@ -14,11 +14,11 @@ public class Config {
   public static int embeddingSize=300;
 
   public static double part4C=0.0828125;
-  public static double part4Gamma=  0.6980000000000001;
+  public static double part4Gamma=  0.698;
 
   // for tunning only
   public static double C = 0.0828125;
-  public static double gamma = 0.6980000000000001;
+  public static double gamma = 0.698;
 
   // SMO
   public static double part4SMOC=100;
