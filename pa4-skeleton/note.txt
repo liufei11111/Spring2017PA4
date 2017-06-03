@@ -1,0 +1,3 @@
+time ./run.sh pa4-data/pa3.signal.train pa4-data/pa3.rel.train pa4-data/pa3.signal.dev pa4-data/pa3.rel.dev pa4-data/idfs 4 output/output.txt >& output/printout.txt
+java -cp classes:lib/weka.jar:lib/ejml-0.23.jar cs276.pa4.Embedding
+
