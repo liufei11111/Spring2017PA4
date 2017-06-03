@@ -24,4 +24,6 @@ public class Config {
   public static double part4SMOC=100;
   public static int polyOrder = 4;
   public static double part4SMOL=0.00001;
+  // enable razer
+  public static boolean isRazarEnabled=true;
 }
