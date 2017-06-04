@@ -1,5 +1,6 @@
 package cs276.pa4;
 
+import ciir.umass.edu.learning.boosting.RankBoost;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -64,6 +65,30 @@ public class Learning2RankPart2 {
       System.err.println("Extra credit");
       learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
 //      learner = new PointwiseLearnerExtra(Config.part4SMOC,Config.part4SMOL);
+    } else if (task == 5) {
+      learner = new PairwiseLearnerExtraRankBoost();
+//      RankBoost rb = learner.
+      learner.extractTrainFeatures(train_signal_file, train_rel_file, idfs);
+      model = learner.training(null);
+      return null;
+    }else if (task == 6) {
+      learner = new PairwiseLearnerExtraRankNet();
+//      RankBoost rb = learner.
+      learner.extractTrainFeatures(train_signal_file, train_rel_file, idfs);
+      model = learner.training(null);
+      return null;
+    }else if (task == 7) {
+      learner = new PointwiseLearnerExtraAdaRank();
+          /* Step (1): construct your test feature matrix here */
+      learner.extractTrainFeatures(train_signal_file, train_rel_file, idfs);
+      model = learner.training(null);
+      return null;
+    }else if (task == 8) {
+      learner = new PointwiseLearnerExtraListNet();
+          /* Step (1): construct your test feature matrix here */
+      learner.extractTrainFeatures(train_signal_file, train_rel_file, idfs);
+      model = learner.training(null);
+      return null;
     }
 
     /* Step (1): construct your feature matrix here */
@@ -109,6 +134,38 @@ public class Learning2RankPart2 {
       System.err.println("Extra credit");
       learner = new PairwiseLearnerExtra(Config.C, Config.gamma, false);
 //      learner = new PointwiseLearnerExtra(Config.part4SMOC,Config.part4SMOL);
+    }else if (task == 5) {
+      learner = new PairwiseLearnerExtraRankBoost();
+          /* Step (1): construct your test feature matrix here */
+      TestFeatures tf = learner.extractTestFeatures(test_signal_file, idfs);
+
+    /* Step (2): implement your prediction and ranking code here */
+      ranked_queries = learner.testing(tf, model);
+      return ranked_queries;
+    }else if (task == 6) {
+      learner = new PairwiseLearnerExtraRankNet();
+          /* Step (1): construct your test feature matrix here */
+      TestFeatures tf = learner.extractTestFeatures(test_signal_file, idfs);
+
+    /* Step (2): implement your prediction and ranking code here */
+      ranked_queries = learner.testing(tf, model);
+      return ranked_queries;
+    }else if (task == 7) {
+      learner = new PointwiseLearnerExtraAdaRank();
+          /* Step (1): construct your test feature matrix here */
+      TestFeatures tf = learner.extractTestFeatures(test_signal_file, idfs);
+
+    /* Step (2): implement your prediction and ranking code here */
+      ranked_queries = learner.testing(tf, model);
+      return ranked_queries;
+    }else if (task == 8) {
+      learner = new PointwiseLearnerExtraListNet();
+          /* Step (1): construct your test feature matrix here */
+      TestFeatures tf = learner.extractTestFeatures(test_signal_file, idfs);
+
+    /* Step (2): implement your prediction and ranking code here */
+      ranked_queries = learner.testing(tf, model);
+      return ranked_queries;
     }
     /* Step (1): construct your test feature matrix here */
     TestFeatures tf = learner.extractTestFeatures(test_signal_file, idfs);
@@ -172,7 +229,7 @@ public class Learning2RankPart2 {
     double highestScore = -Double.MAX_VALUE;
     double highestC = -Double.MAX_VALUE;
     double highestGamma = -Double.MAX_VALUE;
-    double total = 20.0;
+    double total = 1.0;
 
     for (double i=0;i<total;i=i+1.0){
 //      Config.C = 56.0+i*2.0/total;
@@ -181,7 +238,7 @@ public class Learning2RankPart2 {
 //      Config.part4SMOC = Math.pow(2,-3+i);
 
 //      for(double j=0;j<total;j=j+1.0){
-        Config.gamma = 0.696 + 0.008*i/total;
+//        Config.gamma = 0.696 + 0.008*i/total;
 //        Config.gamma = Math.pow(2,-total+i);
         Classifier model = train(train_signal_file, train_rel_file, task, idfs);
     /* performance on the training data */
