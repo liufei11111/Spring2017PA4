@@ -21,5 +21,4 @@ public class TestFeatures {
 
   Map<Query,Map<Pair<Document,Document>, Integer>> svmFeasMap;
   Map<Query, List<Document>> svmQueryDocGrouping;
-  public Map<Integer, Integer> rowToQueryID;
 }

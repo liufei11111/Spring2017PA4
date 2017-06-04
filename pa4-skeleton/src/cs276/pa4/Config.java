@@ -10,8 +10,7 @@ public class Config {
   public static double part3C = 30;
   public static double part3Gamma = 0.04675;
 
-//  public static String savedEmbeddingFile="/farmshare/user_data/fliu5/savedEmbedding.txt";
-  public static String savedEmbeddingFile="savedEmbedding.txt";
+  public static String savedEmbeddingFile="/farmshare/user_data/fliu5/savedEmbedding.txt";
   public static int embeddingSize=300;
 
   public static double part4C=0.0828125;
@@ -31,10 +30,4 @@ public class Config {
   // enable razar part 4
   public static boolean isRazarEnabledPart4Title =false;
   public static boolean isRazarEnabledPart4TitleSim =false;
-  // ranknet train feature name
-  public static String saveRankNetTrainFileName ="ranknetTrainFeatureName.txt";
-  public static String saveRankNetTestFileName="ranknetTestFeatureName.txt";
-  public static String saveRankNetModelFileName="ranknetModelFile.txt";
-  public static String adaRankTolerance="0.00001";
-  public static String adaRankRounds="50";
 }
