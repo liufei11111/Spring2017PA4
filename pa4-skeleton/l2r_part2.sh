@@ -21,5 +21,5 @@ ant
 
 echo ""
 echo "Executing: java -cp classes:lib/weka.jar:lib/ejml-0.23.jar cs276.pa4.Learning2Rank $train_signal_file $train_rel_file $test_signal_file $idfs_file $task $out_file"
-java -cp classes:lib/weka.jar:lib/ejml-0.23.jar cs276.pa4.Learning2RankPart2 $train_signal_file $train_rel_file $test_signal_file $idfs_file $task $out_file
+java -cp classes:lib/weka.jar:lib/ejml-0.23.jar:lib/RankLib-2.1-patched.jar cs276.pa4.Learning2RankPart2 $train_signal_file $train_rel_file $test_signal_file $idfs_file $task $out_file
 

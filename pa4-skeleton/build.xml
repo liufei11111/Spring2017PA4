@@ -21,6 +21,7 @@
     <fileset dir=".">
       <include name="lib/weka.jar"/>
       <include name="lib/ejml-0.23.jar"/>
+      <include name="lib/RankLib-2.1-patched.jar"/>
     </fileset>
   </path>
 
